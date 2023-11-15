@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="container mt-5">
+        <div class="card form">
+            <div class="card-header">
+                Blockchain Demo
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <label for="privatekey" class="visually-hidden">Private Key</label>
+                        <input type="text" class="form-control" id="privatekey" placeholder="Enter your private key..." value="">
+                        <p class="error text-danger hide">Invalid Private Key</p>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3" onclick="submitPrivatekey()">Confirm identity</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="result hide">
+            <div class="card form">
+                <div class="card-header">
+                    <div class="row">
+                        <h3 class="col">Blockchain Demo</h3>
+                        <div class="col d-flex align-items-center">
+                            <span class="h4">Student Key</span> - <span class="student_id h4 fw-bold"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Course</th>
+                                <th scope="col">Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        <div id="app"></div>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
+  <!-- <script src="./index.js"></script> -->
+</html>
+<style>
+    body {
+        font-family: sans-serif;
+    }
+    .hide {
+        display: none;
+    }
+</style>
+<script>
+
+const studentJson = [
+    {
+        "course": [
+            {
+                "name": "Business 200",
+                "grade": "A"
+            },
+            {
+                "name": "Engineering 300",
+                "grade": "D"
+            },
+            {
+                "name": "History 300",
+                "grade": "B"
+            },
+            {
+                "name": "Parks 320",
+                "grade": "F"
+            },
+            {
+                "name": "Spainish 101",
+                "grade": "F"
+            },
+        ],
+        "publicKey": "ad59da",
+        "privateKey": "c8fc47b6fe"
+    },
+    {
+        "course": [
+            {
+                "name": "Business 200",
+                "grade": "B"
+            },
+            {
+                "name": "Engineering 300",
+                "grade": "F"
+            },
+            {
+                "name": "History 300",
+                "grade": "NA"
+            },
+            {
+                "name": "Parks 320",
+                "grade": "D"
+            },
+            {
+                "name": "Spainish 101",
+                "grade": "C"
+            },
+        ],
+        "publicKey": "bd9ebc",
+        "privateKey": "4382af3398"
+    },
+    {
+        "course": [
+            {
+                "name": "Business 200",
+                "grade": "A"
+            },
+            {
+                "name": "Engineering 300",
+                "grade": "D"
+            },
+            {
+                "name": "History 300",
+                "grade": "B"
+            },
+            {
+                "name": "Parks 320",
+                "grade": "F"
+            },
+            {
+                "name": "Spainish 101",
+                "grade": "F"
+            },
+        ],
+        "publicKey": "c67445",
+        "privateKey": "56164d905c"
+    },
+    {
+        "course": [
+            {
+                "name": "Business 200",
+                "grade": "C"
+            },
+            {
+                "name": "Engineering 300",
+                "grade": "F"
+            },
+            {
+                "name": "History 300",
+                "grade": "A"
+            },
+            {
+                "name": "Parks 320",
+                "grade": "D"
+            },
+            {
+                "name": "Spainish 101",
+                "grade": "B"
+            },
+        ],
+        "publicKey": "e2dd8a",
+        "privateKey": "ae4710fff0"
+    },
+    {
+        "course": [
+            {
+                "name": "Business 200",
+                "grade": "NA"
+            },
+            {
+                "name": "Engineering 300",
+                "grade": "B"
+            },
+            {
+                "name": "History 300",
+                "grade": "C"
+            },
+            {
+                "name": "Parks 320",
+                "grade": "D"
+            },
+            {
+                "name": "Spainish 101",
+                "grade": "F"
+            },
+        ],
+        "publicKey": "fc45e2",
+        "privateKey": "39c2ef1cb6"
+    },
+    {
+        "course": [
+            {
+                "name": "Business 200",
+                "grade": "A"
+            },
+            {
+                "name": "Engineering 300",
+                "grade": "D"
+            },
+            {
+                "name": "History 300",
+                "grade": "B"
+            },
+            {
+                "name": "Parks 320",
+                "grade": "C"
+            },
+            {
+                "name": "Spainish 101",
+                "grade": "F"
+            },
+        ],
+        "publicKey": "bde7af",
+        "privateKey": "f674f230d4"
+    },
+    {
+        "course": [
+            {
+                "name": "Business 200",
+                "grade": "A"
+            },
+            {
+                "name": "Engineering 300",
+                "grade": "D"
+            },
+            {
+                "name": "History 300",
+                "grade": "B"
+            },
+            {
+                "name": "Parks 320",
+                "grade": "F"
+            },
+            {
+                "name": "Spainish 101",
+                "grade": "F"
+            },
+        ],
+        "publicKey": "da603d",
+        "privateKey": "187235b94a"
+    },
+];
+
+// console.log(studentJson);
+function submitPrivatekey(){
+    const privateKey = document.getElementById('privatekey').value;
+    const grade = document.querySelector('.grade');
+
+    const tbody = document.querySelector('tbody');
+    studentJson.map(student => {
+        if(student.privateKey == privateKey) {
+            document.querySelector('.student_id').innerHTML = student.publicKey;
+            student.course.forEach((item) => {
+                console.log('sefsdf');
+                const tr = document.createElement('tr');
+                const td2 = document.createElement('td');
+                const td3 = document.createElement('td');
+                
+                td2.innerHTML = item.name;
+                td3.innerHTML = item.grade;
+                
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+
+                tbody.appendChild(tr);
+            })
+            document.querySelector('.result').classList.remove('hide');
+            document.querySelector('.form').classList.add("hide");
+            document.querySelector('.error').classList.add('hide');
+        } else {
+            privateKey.value = "";
+            document.querySelector('.error').classList.remove('hide');
+        }
+    })
+}
+</script>
